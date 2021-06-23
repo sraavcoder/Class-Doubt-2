@@ -1,51 +1,65 @@
-//Diver rotation component
-AFRAME.registerComponent("diver-rotation-reader", {
+AFRAME.registerComponent("diver_movement", {
   schema: {
     speedOfRoation: { type: "number", default: 0 },
-    speedOfAscent: { type: "number", default: 0 }
+    speedOfbend: { type: "number", default: 0 }
   },
   init: function () {
     window.addEventListener("keydown", (e) => {
 
-      //get the data from the attributes
       this.data.speedOfRoation = this.el.getAttribute("rotation");      
-      this.data.speedOfAscent = this.el.getAttribute("position");
-
+      this.data.speedOfbend = this.el.getAttribute("position");
       var diverRotation = this.data.speedOfRoation;      
-      var diverPosition = this.data.speedOfAscent;
+      var diverPosition = this.data.speedOfbend;
 
-      //control the attributes with the Arrow Keys
-      if (e.key === "ArrowRight") {
+      if (e.key === "w") {
         if (diverRotation.x < 10) {
           diverRotation.x += 0.5;
           this.el.setAttribute("rotation", diverRotation);
         }
+          diverPosition.y += 0.05;
+          this.el.setAttribute("position", diverPosition);
+
       }
-      if (e.key === "ArrowLeft") {
+      if (e.key === "s") {
         if (diverRotation.x > -10) {
           diverRotation.x -= 0.5;
           this.el.setAttribute("rotation", diverRotation);
         }
+          diverPosition.y -= 0.05;
+          this.el.setAttribute("position", diverPosition);
       }
-      if (e.key === "ArrowUp") {
-        if (diverRotation.z < 20) {
+      if (e.key === "d") {
+        if (diverRotation.z < 15) {
           diverRotation.z += 0.5;
           this.el.setAttribute("rotation", diverRotation);
         }
-        if (diverPosition.y < 2) {
-          diverPosition.y += 0.01;
+          diverPosition.x += 0.05;
           this.el.setAttribute("position", diverPosition);
-        }
       }
-      if (e.key === "ArrowDown") {
+      if (e.key === "a") {
         if (diverRotation.z > -10) {
           diverRotation.z -= 0.5;
           this.el.setAttribute("rotation", diverRotation);
         }
-        if (diverPosition.y > -2) {
-          diverPosition.y -= 0.01;
+          diverPosition.x -= 0.05;
           this.el.setAttribute("position", diverPosition);
+      }
+      if (e.key === "a") {
+        if (diverRotation.z > -10) {
+          diverRotation.z -= 0.5;
+          this.el.setAttribute("rotation", diverRotation);
         }
+          diverPosition.x -= 0.05;
+          this.el.setAttribute("position", diverPosition);
+      
+      }
+      if (e.key === "ArrowDown") {
+        diverPosition.z += 0.05;
+        this.el.setAttribute("position", diverPosition);
+      }
+      if (e.key === "ArrowUp") {
+        diverPosition.z -= 0.05;
+        this.el.setAttribute("position", diverPosition);
       }
     });
   }
